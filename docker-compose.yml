@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  opa:
+    image: openpolicyagent/opa:latest
+    container_name: opa
+    ports:
+      - "8181:8181"
+    command:
+      - "run"
+      - "--server"
+      - "--log-level=info"
+      - "--addr=0.0.0.0:8181"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8181/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 5
+
+  opal-server:
+    image: permitio/opal-server:0.3.1  # ✅ Feste, stabile Version mit Admin-API
+    container_name: opal-server
+    ports:
+      - "7002:7002"
+    environment:
+      OPAL_POLICY_REPO_URL: "https://github.com/permitio/opal-example-policy-repo"
+      OPAL_ENABLE_ADMIN_API: "true"  # ✅ Admin-API aktivieren
+      OPAL_LOG_LEVEL: DEBUG
+      OPAL_SERVER_TOKEN: "super-secret-token"
+    depends_on:
+      - opa
+
+  opal-client:
+    image: permitio/opal-client:latest
+    container_name: opal-client
+    environment:
+      OPAL_SERVER_URL: "http://opal-server:7002"
+      POLICY_AGENT_ADDRESS: "http://opa:8181"
+      OPAL_CLIENT_TOKEN: "super-secret-token"
+    depends_on:
+      - opa
+      - opal-server
