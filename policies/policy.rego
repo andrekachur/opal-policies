@@ -9,6 +9,4 @@ allow {
     input.teilnahmebedingungen_akzeptiert
 }
 
-debug[msg] {
-    msg := sprintf("Input digitalisierungsgrad: %v", [input.digitalisierungsgrad])
-}
+debug := sprintf("Input digitalisierungsgrad: %v", [input.digitalisierungsgrad])
