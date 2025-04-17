@@ -1,1 +1,3 @@
-policies/policy.rego
+{
+  "roots": ["policies"]
+}
