@@ -2,11 +2,8 @@ package unternehmen.zugriff
 
 default allow := false
 
-debug[msg] {
-    msg := sprintf("Eingabe erhalten: %v", [input])
-}
-
 allow {
+    print(sprintf("Eingabe erhalten: %v", [input]))
     lower(input.digitalisierungsgrad) == "mittel"
     input.gaiax_konform
     input.ds_gvo_konform
