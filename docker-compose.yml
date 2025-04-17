@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   opa:
     image: openpolicyagent/opa:latest
@@ -9,9 +11,9 @@ services:
       - "--server"
       - "--log-level=info"
       - "--addr=0.0.0.0:8181"
-      - "--bundle"
-     volumes:
-      - ./policies:/bundle
+      - "/bundle"
+    volumes:
+      - ./policies:/bundle/policies
       - ./.manifest:/bundle/.manifest
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8181/health"]
@@ -28,7 +30,7 @@ services:
       OPAL_POLICY_REPO_URL: "https://github.com/andrekachur/opal-policies"
       OPAL_POLICY_REPO_BRANCH: "master"
       OPAL_ENABLE_ADMIN_API: "true"
-      OPAL_LOG_LEVEL: "DEBUG"  # <--- GROSS schreiben!!!
+      OPAL_LOG_LEVEL: "DEBUG"
     depends_on:
       - opa
 
