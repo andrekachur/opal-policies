@@ -10,6 +10,9 @@ services:
       - "--log-level=info"
       - "--addr=0.0.0.0:8181"
       - "--bundle"
+     volumes:
+      - ./policies:/bundle
+      - ./.manifest:/bundle/.manifest
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8181/health"]
       interval: 5s
