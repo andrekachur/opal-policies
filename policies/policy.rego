@@ -2,7 +2,8 @@ package unternehmen.zugriff
 
 default allow := false
 
-debug := "DEBUG AKTIV"  # <- das hier erzwingt ein diff
+# debug ist jetzt eine Regel!
+debug := "DEBUG AKTIV"
 
 allow {
     lower(input.digitalisierungsgrad) == "mittel"
