@@ -1,11 +1,10 @@
 package unternehmen.zugriff
 
-default allow := false
+default allow = false
 
 allow {
-    print(sprintf("Eingabe erhalten: %v", [input]))
-    lower(input.digitalisierungsgrad) == "mittel"
-    input.gaiax_konform
-    input.ds_gvo_konform
-    input.teilnahmebedingungen_akzeptiert
+  input.digitalisierungsgrad == "Mittel"
+  input.gaiax_konform == true
+  input.ds_gvo_konform == true
+  input.teilnahmebedingungen_akzeptiert == true
 }
