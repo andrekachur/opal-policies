@@ -1,6 +1,19 @@
 version: '3.8'
 
 services:
+  policy-remote-service:
+    image: policy-remote-service
+    container_name: policy-remote-service
+    build:
+      context: .
+      dockerfile: src/main/docker/Dockerfile.jvm
+    ports:
+      - "8080:8080"
+    depends_on:
+      - opa
+    environment:
+      - JAVA_OPTS_APPEND=-Dquarkus.http.host=0.0.0.0
+
   opa:
     image: openpolicyagent/opa:latest
     container_name: opa
