@@ -2,7 +2,7 @@ package unternehmen.zugriff
 
 default allow = false
 
-allow if {
+allow {
   input.digitalisierungsgrad == "Mittel"
   input.gaiax_konform
   input.ds_gvo_konform
